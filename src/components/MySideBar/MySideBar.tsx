@@ -3,17 +3,19 @@ import { CgProfile } from 'react-icons/cg'
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaUsers } from 'react-icons/fa'
 import { GrUserSettings } from 'react-icons/gr'
 import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { TbLogout2 } from 'react-icons/tb'
 import profile from '../../assets/images/sidebar/9c5672219055d43b0ffb2caf907f4b0d.jpeg';
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
+import Cookies from 'js-cookie';
 
 export default function MySideBar() {
     const [collapsed, setCollapsed] = useState(false);
     const toggleCollapseSideBar = () => setCollapsed(!collapsed);
     const [hideCollapse, setHideCollapse] = useState(false);
     const { decodedToken } = useContext(AuthContext) || {};
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (window.innerWidth <= 991) {
@@ -21,10 +23,15 @@ export default function MySideBar() {
         };
         if (window.innerWidth <= 600) {
             setHideCollapse(true);
-        }else {
+        } else {
             setHideCollapse(false);
         }
-    }, [window.innerWidth])
+    }, [window.innerWidth]);
+
+    const handleLogOut = () => {
+        Cookies.remove('authToken');
+        navigate('/');
+    };
 
     return (
         <div className="sideBarContaienr position-relative">
@@ -54,7 +61,7 @@ export default function MySideBar() {
                     <MenuItem icon={<FaUsers size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/users-list" />}>Users</MenuItem>
                     <MenuItem icon={<GrUserSettings size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/add-user" />}>Add User</MenuItem>
                     <MenuItem icon={<CgProfile size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/profile" />}>Profile</MenuItem>
-                    <MenuItem icon={<TbLogout2 size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/" />}>Logout</MenuItem>
+                    <MenuItem icon={<TbLogout2 size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} onClick={handleLogOut} />}>Logout</MenuItem>
                 </Menu>
             </Sidebar>
         </div>
