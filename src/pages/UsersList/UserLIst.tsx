@@ -4,7 +4,7 @@ import { MdOutlineDeleteOutline, MdOutlineSkipNext, MdOutlineSkipPrevious } from
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FetchedData, User } from "../../utils/InterFaces";
+import { FetchedData, UserData } from "../../utils/InterFaces";
 import { useFetch } from "../../utils/useFetch";
 import { baseUrl } from "../../utils/baseUrl";
 import { useNavigate } from "react-router-dom";
@@ -15,14 +15,17 @@ export default function UserLIst() {
     const [currData, loading, error] = useFetch<FetchedData>(`${baseUrl}/users`);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [itemsPerPage] = useState<number>(5);
-    const [paginatedData, setPaginatedData] = useState<User[]>([]);
-    const totalPages: number = Math.ceil(currData?.users?.length / itemsPerPage);
+    const [paginatedData, setPaginatedData] = useState<UserData[]>([]);
     const navigate = useNavigate();
 
+    const totalPages: number = Math.ceil((currData?.users?.length || 0) / itemsPerPage);
+
     useEffect(() => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        setPaginatedData(currData?.users?.slice(startIndex, endIndex));
+        if (currData?.users) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            setPaginatedData(currData?.users?.slice(startIndex, endIndex) || []);
+        }
     }, [currData, currentPage, itemsPerPage]);
 
     const handlePageChange = (page: number) => {
@@ -31,8 +34,8 @@ export default function UserLIst() {
         }
     };
 
-    const handleDeleteUser = async (id: number) => {
-        const userSelected: User | undefined = currData?.users?.find(user => user?.id === id);
+    const handleDeleteUser = async (id: number | string) => {
+        const userSelected: UserData | undefined = currData?.users?.find(user => user?.id === id);
         if (userSelected) {
             Swal.fire({
                 title: `Are you sure you want to delete ${userSelected?.firstName}?`,
@@ -52,11 +55,18 @@ export default function UserLIst() {
                                 text: "The user has been deleted.",
                                 icon: "success",
                             });
-                        } catch (error: any) {
-                            Swal.fire({
-                                icon: 'error',
-                                text: error?.response?.data?.message || 'Something went wrong!',
-                            });
+                        } catch (error: unknown) {
+                            if (axios.isAxiosError(error)) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: error.response?.data?.message || 'Something went wrong!',
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'Something went wrong!',
+                                });
+                            }
                         }
                     })();
                 };
@@ -64,10 +74,10 @@ export default function UserLIst() {
         };
     };
 
-    if(loading){
+    if (loading) {
         return <Loader />;
     };
-    if(error){
+    if (error) {
         return <NotFound />;
     };
 
@@ -91,7 +101,8 @@ export default function UserLIst() {
                         </tr>
                     </thead>
                     <tbody>
-                        {paginatedData?.map((user: User) => (
+                        {paginatedData?.map((user: UserData) => (
+                            user &&
                             <tr key={user.id}>
                                 <td><img src={user.image} alt={`${user.firstName} ${user.lastName}`} /></td>
                                 <td>{user.firstName}</td>
@@ -101,12 +112,12 @@ export default function UserLIst() {
                                 <td>{user.address?.address}</td>
                                 <td>
                                     <BiSolidEdit
-                                        onClick={()=> navigate(`/dashboard/update-user/${user?.id}`)}
+                                        onClick={() => navigate(`/dashboard/update-user/${user?.id}`)}
                                         size={30}
                                         className="text-warning cursorPointer"
                                     />
                                     <MdOutlineDeleteOutline
-                                        onClick={() => handleDeleteUser(user.id)}
+                                        onClick={() => handleDeleteUser(user?.id)}
                                         size={30}
                                         className="text-warning cursorPointer"
                                     />
