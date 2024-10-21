@@ -28,8 +28,8 @@ export default function MySideBar() {
         }
     }, [window.innerWidth]);
 
-    const handleLogOut = () => {
-        Cookies.remove('authToken');
+    const handleLogOut = async() => {
+        await Cookies.remove('authToken');
         navigate('/');
     };
 
@@ -61,7 +61,9 @@ export default function MySideBar() {
                     <MenuItem icon={<FaUsers size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/users-list" />}>Users</MenuItem>
                     <MenuItem icon={<GrUserSettings size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/add-user" />}>Add User</MenuItem>
                     <MenuItem icon={<CgProfile size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} to="/dashboard/profile" />}>Profile</MenuItem>
-                    <MenuItem icon={<TbLogout2 size={30} />} component={<NavLink className={({ isActive }) => isActive ? `active` : ''} onClick={handleLogOut} />}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogOut} icon={<TbLogout2 size={30} />}>
+                        Logout
+                    </MenuItem>
                 </Menu>
             </Sidebar>
         </div>
