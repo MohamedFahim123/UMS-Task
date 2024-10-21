@@ -4,9 +4,9 @@ import MyNavBar from "../../components/MyNavBar/MyNavBar";
 
 export default function View() {
     return (
-        <div className="d-flex vw-100">
+        <div className="d-flex w-100">
             <MySideBar />
-            <div className="w-100">
+            <div className="container-fluid px-0">
                 <MyNavBar />
                 <Outlet />
             </div>

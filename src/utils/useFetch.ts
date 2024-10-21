@@ -10,6 +10,6 @@ export const useFetch = <T,>(url: string) => {
     useEffect(() => {
         getData(url, setCurrData, setLoading, setError);
     }, [url]);
-
+    
     return [currData, loading, error, setCurrData, setLoading, setError] as const;
 };

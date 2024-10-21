@@ -25,7 +25,7 @@ export interface Address {
     image?: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     age?: any;
-    phone?: number | string;
+    phone?: string | undefined;
     birthDate?: string;
     gender?: string;
     address?: Address | null;

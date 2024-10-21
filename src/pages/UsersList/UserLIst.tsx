@@ -17,7 +17,6 @@ export default function UserLIst() {
     const [itemsPerPage] = useState<number>(5);
     const [paginatedData, setPaginatedData] = useState<UserData[]>([]);
     const navigate = useNavigate();
-
     const totalPages: number = Math.ceil((currData?.users?.length || 0) / itemsPerPage);
 
     useEffect(() => {
@@ -31,7 +30,7 @@ export default function UserLIst() {
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
-        }
+        };
     };
 
     const handleDeleteUser = async (id: number | string) => {
@@ -82,50 +81,46 @@ export default function UserLIst() {
     };
 
     return (
-        <div className="page__handler pt-3 px-4 d-flex flex-column w-100">
-            <div className="profile_head pb-3 w-100 d-flex justify-content-between align-items-center">
+        <div className="page__handler pt-3 ps-3 d-flex flex-column">
+            <div className="profile_head pb-3 w-100 d-flex justify-content-between align-items-center flex-wrap">
                 <h2>Users List</h2>
                 <button onClick={() => navigate('/dashboard/add-user')} className="btn text-light fw-medium btn-warning px-4">Add New User</button>
             </div>
-            <div className="users_table">
-                <Table responsive>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Birth Date</th>
-                            <th>Address</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {paginatedData?.map((user: UserData) => (
-                            user &&
-                            <tr key={user.id}>
-                                <td><img src={user.image} alt={`${user.firstName} ${user.lastName}`} /></td>
-                                <td>{user.firstName}</td>
-                                <td>{user.email}</td>
-                                <td>{user.phone}</td>
-                                <td>{user.birthDate}</td>
-                                <td>{user.address?.address}</td>
-                                <td>
-                                    <BiSolidEdit
-                                        onClick={() => navigate(`/dashboard/update-user/${user?.id}`)}
-                                        size={30}
-                                        className="text-warning cursorPointer"
-                                    />
-                                    <MdOutlineDeleteOutline
-                                        onClick={() => handleDeleteUser(user?.id)}
-                                        size={30}
-                                        className="text-warning cursorPointer"
-                                    />
-                                </td>
+            <div className="users_table px-0 mx-0">
+                <div className="table-responsive">
+                    <Table striped hover responsive>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {paginatedData?.map((user: UserData) => (
+                                user &&
+                                <tr key={user.id}>
+                                    <td><img src={user.image} alt={`${user.firstName} ${user.lastName}`} /></td>
+                                    <td>{user.firstName}</td>
+                                    <td title={user?.email && user?.email}>{user?.email ? user?.email?.slice(0, 8) + '...' : ''}</td>
+                                    <td>
+                                        <BiSolidEdit
+                                            onClick={() => navigate(`/dashboard/update-user/${user?.id}`)}
+                                            size={30}
+                                            className="text-warning cursorPointer"
+                                        />
+                                        <MdOutlineDeleteOutline
+                                            onClick={() => handleDeleteUser(user?.id)}
+                                            size={30}
+                                            className="text-warning cursorPointer"
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
             </div>
             <div className="d-flex justify-content-end px-3 align-items-center">
                 <button

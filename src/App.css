@@ -1,147 +1,163 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 .iconCollapsed {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 20px;
 }
 .iconNotCollapsed {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    padding: 20px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 20px 20px;
 }
 .sideBarContaienr {
-    padding-inline-end: 0 !important;
-    height: 100%;
-    min-height: 100vh;
-    background-color: var(--main-bgSideBar);
+  padding-inline-end: 0 !important;
+  height: 100%;
+  min-height: 100vh;
+  background-color: var(--main-bgSideBar);
 }
-.sideBarContaienr ,
+.sideBarContaienr,
 .sideBarContaienr .ps-sidebar-container {
-    color: var(--main-color);
-    background-color: var(--main-bgSideBar) !important;
+  color: var(--main-color);
+  background-color: var(--main-bgSideBar) !important;
 }
 .navBarHandler {
-    background-color: var(--main-bgBody);
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
+  background-color: var(--main-bgBody);
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
 }
 .navBarHandler .logo {
-    position: relative;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 0;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 .navBarHandler .logo::before {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 0;
-    height: 100%;
-    width: 5px;
-    background-color: var(--main-hover);
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: var(--main-hover);
 }
 .sideBarContaienr h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 60px;
-    padding: 0px 30px;
-    position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 60px;
+  padding: 0px 30px;
+  position: relative;
 }
 .sideBarContaienr h2::before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 0;
-    width: 5px;
-    height: 100%;
-    background-color: var(--main-hover);
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background-color: var(--main-hover);
 }
 .nav-link {
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .active {
-    background-color: var(--main-hover) ;
-    color: #ffffff !important;
+  background-color: var(--main-hover);
+  color: #ffffff !important;
 }
 .active:hover {
-    background-color: var(--main-hover) !important;
-    color: #ffffff !important;
+  background-color: var(--main-hover) !important;
+  color: #ffffff !important;
 }
-.sideBarHeader p{
-    color: var(--main-hover);
-    font-size: 14px;
+.sideBarHeader p {
+  color: var(--main-hover);
+  font-size: 14px;
 }
 .sideBarHeader h3 {
-    font-size: 17px;
-    font-weight: bold;
-    margin: 10px 0 5px;
+  font-size: 17px;
+  font-weight: bold;
+  margin: 10px 0 5px;
 }
 .sideBarHeader .image {
-    max-height: 130px;
-    object-fit: contain;
-    overflow: hidden;
-    border-radius: 50%;
-    transition: all 0.3s ease-in-out;
+  max-height: 130px;
+  object-fit: contain;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
 }
 .sideBarHeader .image.collapsedImage {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
 }
 .sideBarContaienr .ps-sidebar-container .ps-menu-button {
-    transition: all 0.3s ease-in-out;
-    margin: 10px 0;
+  transition: all 0.3s ease-in-out;
+  margin: 10px 0;
 }
 .sideBarContaienr .ps-sidebar-container .ps-menu-button:hover {
-    background-color: var(--main-hover) ;
-    color: #ffffff ;
+  background-color: var(--main-hover);
+  color: #ffffff;
 }
 .profile_head {
-    border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid #e5e5e5;
 }
 .page__handler {
-    height: 90.7vh;
-    background-color: var(--main-bgBody);
+  height: 90.7vh;
+  background-color: var(--main-bgBody);
 }
-.page__handler thead , 
-.page__handler thead th, 
-.page__handler thead tr ,
+.page__handler thead,
+.page__handler thead th,
+.page__handler thead tr,
 .page__handler td {
-    background-color: var(--main-bgBody) !important;
-    border: 0px !important;
+  background-color: var(--main-bgBody) !important;
+  border: 0px !important;
 }
-.page__handler tbody tr ,
+.page__handler tbody tr,
 .page__handler tbody tr td {
-    background-color: #ffffff !important;
+  background-color: #ffffff !important;
 }
 .page__handler tbody tr td {
-    padding-block: 12px !important;
+  padding-block: 12px !important;
 }
 .page__handler tbody tr {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 .page__handler tbody tr td img {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
 }
 .cursorPointer {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 .formHandler {
-    padding: 50px 0;
+  padding: 50px 0;
 }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@media (max-width: 768px) {
+    .page__handler {
+        padding-inline-end:  0 !important;
+    }
+  .page__handler tbody tr td {
+    padding-block: 5px !important;
+  }
+  .page__handler tbody tr {
+    font-size: 10px;
+  }
+  .page__handler tbody tr td img {
+    width: 25px;
+    height: 25px;
+  }
 }
