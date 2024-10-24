@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { baseUrl } from '../../utils/baseUrl';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 interface loginSchema {
     username: string,
@@ -16,6 +18,8 @@ interface LoginResponse {
 
 export default function Login() {
     const navigate = useNavigate();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { saveUserData }: any = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -26,6 +30,7 @@ export default function Login() {
         try {
             const response = await axios.post<LoginResponse>(`${baseUrl}/users/login`, data);
             Cookies.set('authToken', response.data.accessToken, { expires: 999999999999999 });
+            saveUserData();
             toast.success("Logged in Successfully!");
             navigate('/dashboard/home');
         } catch (error) {

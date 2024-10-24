@@ -7,6 +7,7 @@ import { UserData } from '../utils/InterFaces';
 interface AuthContextProps {
     token: string | null;
     decodedToken: UserData | null;
+    saveUserData: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null);
@@ -18,6 +19,7 @@ interface AuthContextProviderProps {
 export default function AuthContextProvider(props: AuthContextProviderProps) {
     const [decodedToken, setDecodedToken] = useState<UserData | null>(null);
     const [token, setToken] = useState<string | null>(null);
+    console.log(decodedToken, token)
 
     const saveUserData = () => {
         const storedToken = Cookies.get('authToken');
@@ -37,7 +39,7 @@ export default function AuthContextProvider(props: AuthContextProviderProps) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ decodedToken, token }}>
+        <AuthContext.Provider value={{ saveUserData, decodedToken, token }}>
             {props.children}
         </AuthContext.Provider>
     );
